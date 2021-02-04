@@ -16,7 +16,7 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: mentors
+          SLACK_CHANNEL: test
           SLACK_COLOR: '#7fe5f0'
           SLACK_MESSAGE: 'Starting CI :runner:'
           SLACK_TITLE: A new PR has been opened
@@ -63,7 +63,16 @@ jobs:
         name: Package
         path: staging
 
-        on: push
+    - name: Report Failure
+      if: failure()
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: mentors
+        SLACK_COLOR: '#F7347A'
+        SLACK_MESSAGE: 'CI failed! :rotating_light:'
+        SLACK_TITLE: CI Failed!
+        SLACK_USERNAME: GitHub Actions
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
    
   notify-success:
     needs: [build-and-test, notify-start]
