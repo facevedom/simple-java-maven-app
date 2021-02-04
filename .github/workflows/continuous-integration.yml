@@ -16,7 +16,7 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: test
+          SLACK_CHANNEL: ci-test
           SLACK_COLOR: '#7fe5f0'
           SLACK_MESSAGE: 'Starting CI :runner:'
           SLACK_TITLE: A new PR has been opened
@@ -67,7 +67,7 @@ jobs:
       if: failure()
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_CHANNEL: mentors
+        SLACK_CHANNEL: ci-test
         SLACK_COLOR: '#F7347A'
         SLACK_MESSAGE: 'CI failed! :rotating_light:'
         SLACK_TITLE: CI Failed!
@@ -82,7 +82,7 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_CHANNEL: mentors
+          SLACK_CHANNEL: ci-test
           SLACK_COLOR: '#5AC18E'
           SLACK_MESSAGE: 'CI was succesful! :rocket:'
           SLACK_TITLE: Build Succesful!
