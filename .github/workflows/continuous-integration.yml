@@ -61,8 +61,17 @@ jobs:
         name: Package
         path: staging
 
-        on: push
-   
+    - name: Report Failure
+      if: failure()
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: mentors
+        SLACK_COLOR: '#F7347A'
+        SLACK_MESSAGE: 'CI failed! :rotating_light:'
+        SLACK_TITLE: CI Failed!
+        SLACK_USERNAME: GitHub Actions
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+  
   notify-success:
     needs: [build-and-test, notify-start]
     runs-on: ubuntu-latest
@@ -74,6 +83,6 @@ jobs:
           SLACK_CHANNEL: mentors
           SLACK_COLOR: '#5AC18E'
           SLACK_MESSAGE: 'CI was succesful! :rocket:'
-          SLACK_TITLE: Build Succesful!
+          SLACK_TITLE: CI Succesful!
           SLACK_USERNAME: GitHub Actions
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
